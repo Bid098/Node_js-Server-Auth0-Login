@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<script src="Framework/CommonsRequest.js" type="text/javascript"></script>	
+<script>
+    $RequestToServer("POST", "/GetLoginStatus", {}, function(Answer){
+        console.log(Answer);
+        if(Answer == "false")
+        {
+            alert("wait");
+            window.location = window.location.origin + "/login";
+        }
+    });
+</script>
+<body>
+    
+</body>
+</DOCTYPE>

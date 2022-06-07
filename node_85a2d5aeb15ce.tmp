@@ -1,0 +1,29 @@
+//https://www.youtube.com/watch?v=QQwo4E_B0y8
+//https://github.com/auth0/express-openid-connect
+
+const express = require('express');
+const app = express();
+require('dotenv').config();
+const { auth } = require('express-openid-connect');
+
+app.use(
+  auth({
+    authRequired: false,
+    auth0Logout: true,
+    issuerBaseURL: process.env.ISSUER_BASE_URL,
+    baseURL: process.env.BASE_URL,
+    clientID: process.env.CLIENT_ID,
+    secret: process.env.SECRET,
+    idpLogout: true,
+  })
+);
+
+app.get('/', function(req, res)
+{
+    res.send(req.oidc.isAuthenticated() ? "Logged in" : "Logged out")
+});
+
+const port = process.env.PORT || 3000;
+app.listen(port, function(){
+    console.log('listening at port ' + port);
+});
